@@ -64,3 +64,18 @@ function startQuiz() {
   displayQuestion();
   timer = setInterval(updateTimer, 1000);
 }
+
+function displayQuestion() {
+    var questionElement = document.getElementById("question");
+    var labelA = document.getElementById("labelA");
+    var labelB = document.getElementById("labelB");
+    var labelC = document.getElementById("labelC");
+    var labelD = document.getElementById("labelD");
+  //dots for questions
+    var current = questions[currentQuestion];
+    questionElement.textContent = current.question;
+    labelA.textContent = current.options.a;
+    labelB.textContent = current.options.b;
+    labelC.textContent = current.options.c;
+    labelD.textContent = current.options.d;
+}

@@ -82,3 +82,62 @@ function displayQuestion() {
     var answerRadios = document.querySelectorAll("input[name='answer']");
     answerRadios.forEach(radio => (radio.checked = false));
 }
+
+function checkAnswer() {
+    if (quizEnded) {
+      return; // do nothing if timer has ran out or quiz completed
+    }
+  
+    var answer = document.querySelector("input[name='answer']:checked");
+    if (answer.value === questions[currentQuestion].correctAnswer) {
+      score++;
+    }
+  
+    if (answer.value !== questions[currentQuestion].correctAnswer) {
+      countdown -= 5; // takes 5s off the timer when non correct answer chosen
+    } 
+  
+    currentQuestion++;
+    if (currentQuestion === questions.length) {
+      endQuiz();
+    } else {
+      displayQuestion();
+    }
+  }
+//create end quiz
+
+function endQuiz() {
+    if (quizEnded) {
+      return; // same as above
+    }
+  
+    clearInterval(timer);
+    quizEnded = true; // boolean changed when whether quiz is over
+  
+    var initials = prompt("Enter your initials:");
+    var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    highScores.push({ initials, score });
+    highScores.sort((a, b) => b.score - a.score);
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    //lil math to sort the list, convert into strings
+  
+    var highScoresElement = document.getElementById("highScores");
+    highScoresElement.innerHTML = "";
+    highScores.forEach(entry => {
+      var li = document.createElement("li");
+      li.textContent = `${entry.initials}: ${entry.score}`;
+      highScoresElement.appendChild(li);
+    });
+  }
+  //creating the leaderboard
+  
+  function updateTimer() {
+    var countdownElement = document.getElementById("countdown");
+    countdown--;
+    countdownElement.textContent = countdown;
+  
+    if (countdown <= 0) {
+      endQuiz();
+    }
+  }
+  //timer updates, when reaches 0 quiz ends

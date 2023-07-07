@@ -59,10 +59,10 @@ let quizEnded = false; // prevent quiz from being able to be continued for a sec
 //and score has been submitted
 
 function startQuiz() {
-  document.getElementById("quizContainer").style.display = "block";
-  document.querySelector("button").style.display = "none";
-  displayQuestion();
-  timer = setInterval(updateTimer, 1000);
+    document.getElementById("quizContainer").style.display = "block";
+    document.querySelector("button").style.display = "none";
+    displayQuestion();
+    timer = setInterval(updateTimer, 1000);
 }
 
 function displayQuestion() {
@@ -78,4 +78,7 @@ function displayQuestion() {
     labelB.textContent = current.options.b;
     labelC.textContent = current.options.c;
     labelD.textContent = current.options.d;
+    //question content
+    var answerRadios = document.querySelectorAll("input[name='answer']");
+    answerRadios.forEach(radio => (radio.checked = false));
 }

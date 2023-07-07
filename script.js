@@ -50,3 +50,17 @@ var questions = [
       correctAnswer: "a"
     }
   ];
+
+let currentQuestion = 0; //starting at 0 index of questions
+let score = 0; //will add to this variable later
+let countdown = 30; //change html after you change this !!REMINDER!!
+let timer; 
+let quizEnded = false; // prevent quiz from being able to be continued for a second time after timer has ended
+//and score has been submitted
+
+function startQuiz() {
+  document.getElementById("quizContainer").style.display = "block";
+  document.querySelector("button").style.display = "none";
+  displayQuestion();
+  timer = setInterval(updateTimer, 1000);
+}
